@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>Ryan Nathaniel | Computer Programming 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090909;
+      --panel: #111111;
+      --panel-2: #151515;
+      --line: #292929;
+      --text: #f2f2f2;
+      --muted: #a1a1a1;
+      --red: #e62429;
+      --red-dark: #9e171b;
+      --max: 1200px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: Inter, Arial, sans-serif; line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), 88%); margin: auto; }
+    .eyebrow { color: var(--red); text-transform: uppercase; letter-spacing: .18em; font-size: .76rem; font-weight: 700; }
+    .section { padding: 92px 0; border-top: 1px solid var(--line); position: relative; }
+    .section-title { font: 700 clamp(2rem, 4vw, 3rem)/1.1 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .section-title span { color: var(--red); }
+    .section-lead { color: var(--muted); max-width: 620px; margin-top: 15px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; background: rgba(9,9,9,.92);
+      backdrop-filter: blur(14px); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font: 700 1rem "Space Grotesk", sans-serif; letter-spacing: .12em; white-space: nowrap; }
+    .brand-mark { width: 35px; height: 35px; object-fit: contain; margin-right: 12px; }
+    .brand small { color: var(--muted); font: 400 .7rem Inter, sans-serif; letter-spacing: .12em; border-left: 1px solid #555; padding-left: 13px; margin-left: 4px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 32px); }
+    .nav-links a { color: #bdbdbd; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .hero { min-height: 590px; display: grid; align-items: center; position: relative; isolation: isolate; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background:
+        radial-gradient(ellipse at 78% 35%, rgba(120,25,30,.22), transparent 38%),
+        linear-gradient(110deg, #090909 8%, rgba(9,9,9,.96) 43%, rgba(9,9,9,.45) 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      right: 10%;
+      top: 15%;
+
+      width: 400px;
+      height: 400px;
+
+      background-image: url("images/spidey-logo.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      opacity: 0.15;
+    }
+    .hero-content { padding: 90px 0; max-width: 700px; }
+    .hero h1 { font: 700 clamp(3.5rem, 8vw, 6.7rem)/.98 "Space Grotesk", sans-serif; letter-spacing: -.065em; margin: 20px 0 25px; }
+    .hero h1 span { color: var(--red); }
+    .hero-copy { color: #b5b5b5; max-width: 560px; font-size: 1.03rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 18px; border: 1px solid var(--red); font-size: .82rem; font-weight: 600; transition: .2s; }
+    .btn-primary { background: var(--red); color: white; }
+    .btn-primary:hover { background: #bd1c21; border-color: #bd1c21; }
+    .btn-outline:hover { background: rgba(230,36,41,.12); }
+    .hero-note { margin-top: 42px; color: #707070; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 55px; align-items: center; }
+    .profile-panel { min-height: 310px; border: 1px solid #3b1719; background: linear-gradient(145deg, #191111, #101010 60%); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .profile-panel::before, .profile-panel::after { content: ""; position: absolute; width: 130px; height: 130px; border: 1px solid rgba(230,36,41,.28); transform: rotate(45deg); }
+    .profile-panel::before { top: -70px; left: -70px; } .profile-panel::after { bottom: -70px; right: -70px; }
+    .profile-symbol { font-size: 7rem; color: rgba(230,36,41,.75); text-shadow: 0 0 45px rgba(230,36,41,.2); }
+    .about-copy p { color: #b4b4b4; margin-top: 16px; }
+    .about-copy strong { color: white; }
+    .skills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
+    .skill { border: 1px solid var(--line); padding: 7px 12px; color: #d0d0d0; font-size: .75rem; background: #101010; }
+    .skill::before { content: "↳ "; color: var(--red); }
+    .work-layout { display: grid; grid-template-columns: .8fr 2fr; gap: 45px; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .work-card { background: var(--panel); border: 1px solid var(--line); padding: 23px; min-height: 170px; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+    .work-card:hover { border-color: #7e2427; transform: translateY(-3px); }
+    .work-icon { color: var(--red); font-size: 1.35rem; margin-bottom: 14px; }
+    .work-card h3 { font: 600 1rem "Space Grotesk", sans-serif; }
+    .work-card p { color: var(--muted); font-size: .82rem; margin-top: 7px; flex: 1; }
+    .work-card .card-link { color: #f1f1f1; font-size: .78rem; margin-top: 18px; }
+    .work-card .card-link span { color: var(--red); margin-left: 5px; }
+    .reflection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 36px; }
+    .reflection-card { background: linear-gradient(145deg, #151515, #101010); border: 1px solid var(--line); padding: 27px; }
+    .reflection-card .number { color: var(--red); font: 700 .8rem "Space Grotesk", sans-serif; letter-spacing: .1em; }
+    .reflection-card h3 { font: 600 1.15rem "Space Grotesk", sans-serif; margin: 12px 0; }
+    .reflection-card p { color: #aaa; font-size: .86rem; }
+    .reflection-card a { display: inline-block; border: 1px solid #5e2224; padding: 7px 11px; margin-top: 20px; font-size: .72rem; color: #eee; }
+    .reflection-card a:hover { border-color: var(--red); color: var(--red); }
+    .closing { padding: 65px 0; background: #0e0e0e; border-top: 1px solid var(--line); }
+    .closing-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .closing p { color: var(--muted); margin-top: 8px; }
+    footer { border-top: 1px solid var(--line); padding: 22px 0; color: #777; font-size: .75rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .red { color: var(--red); }
+    @media (max-width: 900px) {
+      .nav { flex-direction: column; padding: 16px 0; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .hero { min-height: 520px; }
+      .about-grid, .work-layout { grid-template-columns: 1fr; gap: 30px; }
+      .profile-panel { min-height: 220px; }
+      .reflection-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .container { width: 90%; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: .68rem; }
+      .brand { font-size: .85rem; }
+      .brand small { display: none; }
+      .hero h1 { font-size: 3.45rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .section { padding: 65px 0; }
+      .closing-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home"><img src="images/spidey-logo.png" class="brand-mark" alt="Spider Logo"> E-PORTFOLIO </a>
+      <div class="nav-links">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About Me</a>
+        <a href="#works">Academics & Works</a>
+        <a href="#reflections">Reflections</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow">Computer Programming 2 · Jose Rizal University</p>
+          <h1>Hello, I'm<br><span>Ryan Nathaniel C. Patolot</span></h1>
+          <p class="hero-copy">Welcome to my e-portfolio. This website is for the showcase of my academic journey and programming experiences in Computer Programming 2.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#works">Explore Portfolio <span>↗</span></a>
+            <a class="btn btn-outline" href="#about">Get to know me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="profile-panel" aria-label="Decorative profile placeholder">
+          <!-- Replace this symbol with your own photo if you want -->
+          <div class="profile-symbol">✳</div>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow">01 / About</p>
+          <h2 class="section-title">About Me<span>.</span></h2>
+          <p>I am <strong>Ryan Nathaniel C. Patolot</strong>, 21 years old, a student of Jose Rizal University currently taking Computer Programming 2. I am interested in technology, programming, and learning new things computer related. Also, if it was not obvious, I like Spider-Man :)</p>
+          <p>Through this course, I sought to improve my programming skills, strengthen my understanding of computer science, and continue learning new programming languages.</p>
+          <div class="skills" aria-label="Skills and interests">
+            <span class="skill">Java</span><span class="skill">HTML</span>
+            <span class="skill">CSS</span><span class="skill">Object-Oriented Programming</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="container work-layout">
+        <div>
+          <p class="eyebrow">02 / Coursework</p>
+          <h2 class="section-title">Academics &<br>Relevant Works<span>.</span></h2>
+          <p class="section-lead">A collection of academic activities, projects, and experiences from my journey in JRU.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card">
+            <div class="work-icon">▤</div><h3>PTs & Products</h3>
+            <p>Compilation of programming exercises, activities, seatworks, and machine problems.</p>
+            <a class="card-link" href="files/pt-products.pdf" target="_blank">Open PDF <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">▱</div><h3>Project Documentation</h3>
+            <p>Documentation covering the objectives, design, and implementation of my project.</p>
+            <a class="card-link" href="files/project-documentation.pdf" target="_blank">Open documentation <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">▷</div><h3>Video Presentation</h3>
+            <p>A presentation demonstrating my project and explaining its features.</p>
+            <a class="card-link" href="https://www.youtube.com/" target="_blank">Watch presentation <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">◎</div><h3>Seminars & Trainings</h3>
+            <p>Seminars, webinars, and training sessions attended.</p>
+            <a class="card-link" href="files/seminars.pdf" target="_blank">View certificates <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">♧</div><h3>Organization & Community</h3>
+            <p>School organizations, extracurricular activities, and community involvement.</p>
+            <a class="card-link" href="files/involvement.pdf" target="_blank">View involvement <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">✧</div><h3>Awards & Recognitions</h3>
+            <p>Academic awards, achievements, and recognitions received.</p>
+            <a class="card-link" href="files/awards.pdf" target="_blank">View achievements <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">＋</div><h3>Other Experiences</h3>
+            <p>Additional academic or professional experiences worth sharing.</p>
+            <a class="card-link" href="#contact">More about me <span>↗</span></a>
+          </article>
+          <article class="work-card">
+            <div class="work-icon">⌘</div><h3>Work / Internship</h3>
+            <p>Add work experience, internship, or immersion details here, if applicable.</p>
+            <a class="card-link" href="files/experience.pdf" target="_blank">View experience <span>↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reflections">
+      <div class="container">
+        <p class="eyebrow">03 / Learning Journal</p>
+        <h2 class="section-title">Term Reflections<span>.</span></h2>
+        <p class="section-lead">My learnings, experiences, and insights throughout Computer Programming 2. Each reflection focuses on one term.</p>
+        <div class="reflection-grid">
+          <article class="reflection-card">
+            <span class="number">01 — PRELIM</span>
+            <h3>Starting with the Basics</h3>
+            <p>Reflect on your introduction to programming, foundational concepts, first activities, and the challenges you encountered.</p>
+            <a href="reflections/prelim.html">Read reflection ↗</a>
+          </article>
+          <article class="reflection-card">
+            <span class="number">02 — MIDTERM</span>
+            <h3>Building Confidence</h3>
+            <p>Discuss the topics you learned, how you approached more complex problems, and how your skills developed.</p>
+            <a href="reflections/midterm.html">Read reflection ↗</a>
+          </article>
+          <article class="reflection-card">
+            <span class="number">03 — FINAL</span>
+            <h3>Putting It Together</h3>
+            <p>Share your final-term learnings, project experience, improvements, and what you will carry forward.</p>
+            <a href="reflections/final.html">Read reflection ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" id="contact">
+      <div class="container closing-inner">
+        <div>
+          <p class="eyebrow">End of portfolio</p>
+          <h2 class="section-title">Thank you for visiting<span>.</span></h2>
+          <p>This portfolio represents my progress—not just what I have completed, but what I have learned.</p>
+        </div>
+        <a class="btn btn-outline" href="#home">Back to top ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Jose Rizal University <span class="red">/</span> Computer Programming 1</span>
+      <span>© 2026 Ryan Nathaniel</span>
+    </div>
+  </footer>
+</body>
+</html>
